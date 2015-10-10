@@ -6,11 +6,14 @@
     <style>
         * { 
             padding: 0;
-            marin: 0;
+            margin: 0;
         }
         
         h1 {
             text-align: center;
+            font-family: Courier New;
+            font-size: 50px;
+            color: #00A5E6;
         }
     </style>
     <script src="js/phaser.min.js"></script>
@@ -41,10 +44,20 @@
             
             // position for ball to be added
             ball = game.add.sprite(game.world.width*0.5, game.world.height-25, "ball");
+            game.physics.arcade.checkCollision.down = false;
+            ball.checkWorldBounds = true;
+            
+            // ability to lose
+            ball.events.onOutOfBounds.add(function() {
+                // insults go here
+                alert("Game Over");
+                location.reload();
+            }, this);
+            
             ball.anchor.set(0.5);
             game.physics.enable(ball, Phaser.Physics.ARCADE);
     
-            ball.body.velocity.set(150, 150);
+            ball.body.velocity.set(150, -150);
             ball.body.collideWorldBounds = true;
             ball.body.bounce.set(1);
             
