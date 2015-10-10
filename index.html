@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Breakout With Phaser</title>
+    <style>
+        * { 
+            padding: 0;
+            marin: 0;
+        }
+        
+        h1 {
+            text-align: center;
+        }
+    </style>
+    <script src="js/phaser.min.js"></script>
+</head>
+    
+<body>
+    
+    <h1>SUPER BREAKOUT</h1>
+    <script>
+        // height&width of canvas, rendering method, id of canvas (null bc Phaser creates its own, 
+        var game = new Phaser.Game(480, 320, Phaser.AUTO, null, { preload: preload, create: create, update: update });
+        
+        var ball;
+        var paddle;
+        
+        function preload() {
+            // scales canvas, but keeps aspect ratio
+            game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+            game.scale.pageAlignHorizontally = true;
+            game.scale.pageAlignVertically = true;
+            game.stage.backgroundColor = "eee";
+            game.load.image("ball", "img/ball.png");
+            game.load.image("paddle", "img/paddle.png");
+        }
+        
+        function create() {
+            game.physics.startSystem(Phaser.Physics.ARCADE);
+            
+            // position for ball to be added
+            ball = game.add.sprite(game.world.width*0.5, game.world.height-25, "ball");
+            ball.anchor.set(0.5);
+            game.physics.enable(ball, Phaser.Physics.ARCADE);
+    
+            ball.body.velocity.set(150, 150);
+            ball.body.collideWorldBounds = true;
+            ball.body.bounce.set(1);
+            
+            paddle = game.add.sprite(game.world.width*0.5, game.world.height-5, "paddle");
+            paddle.anchor.set(0.5,1);
+            game.physics.enable(paddle, Phaser.Physics.ARCADE);
+            paddle.body.immovable = true;
+        }
+        
+        // executed on every frame
+        function update() {
+            game.physics.arcade.collide(ball, paddle);
+            paddle.x = game.input.x || game.world.width*0.5;
+        }
+    </script>
+</body>
+</html>
