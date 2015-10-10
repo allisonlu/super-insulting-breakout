@@ -49,14 +49,14 @@
             
             // position for ball to be added
             ball = game.add.sprite(game.world.width*0.5, game.world.height-25, "ball");
-            game.physics.arcade.checkCollision.down = false;
+            game.physics.arcade.checkCollision.down = true;
             ball.checkWorldBounds = true;
             
             // ability to lose
             ball.events.onOutOfBounds.add(function() {
                 // insults go here
-                alert("Game Over");
-                location.reload();
+                //alert("Game Over");
+                //location.reload();
             }, this);
             
             ball.anchor.set(0.5);
