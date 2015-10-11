@@ -16,11 +16,6 @@
             color: #00A5E6;
         }
 
-        .textBox {
-            margin:auto;
-            vertical-align:middle
-            
-        }
     </style>
     <script src="js/phaser.min.js"></script>
     <script src="js/jquery-2.1.4.min.js"></script>
@@ -39,12 +34,39 @@
         var bricks;
         var newBrick;
         var brickInfo;
-        
-        //va reader = new FileReader();
-        //reader.readAsText("hurtfulcomments.txt");
-        //reader = text.split("\n");
-        //alert(reader[1]);
-        //var insults = textFileToArray("hurtfulcomments.txt");        
+        var insults = [
+            "I would rather have a dog then you as a son or daughter.",
+            "You have ugly feet.",
+            "The name of this game references your complexion.",
+            "I don't even know you, but you have always been a disappointment to me.",
+            "Your face makes small mammals cry.",
+            "Your fingers look like moldy breadsticks.",
+            "I frequently fantasize about murdering you.",
+            "I am ashamed of being part of a species that produced you.",
+            "You have the gracefulness of a T-rex trying to do tai chi.",
+            "I've been prouder of things I've left in the toilet than I am of you.",
+            "I wish I could get a refund on your birth certificate.",
+            "The clowns are laughing AT you, not WITH you.",
+            "You have something stuck in your teeth. Leave it - it distracts from your nose.",
+            "When you use technology it's like watching a monkey learn to use a tool.",
+            "The garbage collector has been trying to take you for the past decade.",
+            "Your family pretends to like you. They merely tolerate you.",
+            "You think you have friends? That's adorable.",
+            "We know you don't use Github because you're affrid to commit.",
+            "You are an oxygen thief.",
+            "You're so ugly you could be a modern art masterpiece.",
+            "John Snow knows more then you.",
+            "So, it has come to this...",
+            "You're wonderful and I'm happy to have you in my life. /sarcasm",
+            "The world is a colder, darker place with you in it.",
+            "You're like an onion, not because you have layers, but because you make me cry.",
+            "Please quit this game. You sicken me.",
+            "Lawyers and politicians thank God they aren't as reviled as you are.",
+            "When you quit this game my eyes will water; but more merry tears the passion of loud laughter shall never shed.",
+            "I was searching for a fool when I found YOU.",
+            "Thou art a boil, a plague-sore, an embossed carbuncle in my corrupted blood.",
+            "I do desire we may be better strangers."
+        ]        
 
         function preload() {
             // scales canvas, but keeps aspect ratio
@@ -64,10 +86,7 @@
             ball = game.add.sprite(game.world.width*0.5, game.world.height-25, "ball");
             game.physics.arcade.checkCollision.down = true;
             ball.checkWorldBounds = true;
-            //if (ball.body.onFloor() == true){
-              //  alert("D'oh");
-            //} 
-            // ability to lose
+           // ability to lose
             ball.events.onOutOfBounds.add(function() {
                 // insults go here
                 //alert("Game Over");
@@ -86,7 +105,6 @@
             game.physics.enable(paddle, Phaser.Physics.ARCADE);
             paddle.body.immovable = true;
             
-            //initBricks();
         }
         
         // executed on every frame
@@ -95,54 +113,14 @@
             game.physics.arcade.collide(ball, paddle);
             paddle.x = game.input.x || game.world.width*0.5;
             if (ball.body.blocked.down){
-                //alert("D'oh");
+                var ran = Math.floor(Math.random()*insults.length);
+                var style = { align: 'left', wordWrap: true, wordWrapWidth: 300 };
                 //new Text(game, x, y, text, style)
-                text = game.add.text(game.world.centerX, game.world.centerY, "Insults");
+                text = game.add.text(game.world.centerX, game.world.centerY, insults[ran], style);
+                text.anchor.set(0.5);
                 text.lifespan = 3000;
             }
         }
-        /*
-        function initBricks() {
-            brickInfo = {
-                width: 50,
-                height: 20,
-                count: {
-                    row: 7,
-                    col: 3
-                },
-                offset: {
-                    top: 50,
-                    left: 60
-                },
-                padding: 10
-            }
-            
-            bricks = game.add.group();
-          */  
-            /* create new bricks and add it to group
-             * enabled Arcade physics engine
-             * set to immovable so it won't move when hit by ball
-             * setting anchor to middle
-            */
-          /*  for(c=0; c<brickInfo.count.col; c++) {
-                for(r=0;r<brickInfo.count.row; r++) {
-                    // positioning each brick at its own x and y position
-                    var brickX = (r*(brickInfo.width+brickInfo.padding)) + brickInfo.offset.left;
-                    var brickY = (c*(brickInfo.height+brickInfo.padding)) + brickInfo.offset.top;
-                    
-                    newBrick = game.add.sprite(brickX, brickY, "brick");
-                    game.physics.enable(newBrick, Phaser.Physics.ARCADE);
-                    newBrick.body.immovable = true;
-                    newBrick.body.anchor.set(0.5);
-                    bricks.add(newBrick);
-                }
-            }*/
-    //}
-    
-        function hitBottom(){
-            alert("D'oh");
-        }
-
     </script>
 </body>
 </html>
