@@ -11,7 +11,7 @@
         
         h1 {
             text-align: center;
-            font-family: Courier New;
+            font-family: Serif;
             font-size: 50px;
             color: #00A5E6;
         }
@@ -25,7 +25,8 @@
     <h1>SUPER BREAKOUT</h1>
     <script>
         // height&width of canvas, rendering method, id of canvas (null bc Phaser creates its own, 
-        var game = new Phaser.Game(480, 320, Phaser.AUTO, null, { preload: preload, create: create, update: update });
+        //new Game(width, height, renderer, parent, state, transparent, antialias, physicsConfig)
+        var game = new Phaser.Game(480, 250, Phaser.AUTO, null, { preload: preload, create: create, update: update });
         
         var ball;
         var paddle;
@@ -51,7 +52,9 @@
             ball = game.add.sprite(game.world.width*0.5, game.world.height-25, "ball");
             game.physics.arcade.checkCollision.down = true;
             ball.checkWorldBounds = true;
-            
+            //if (ball.body.onFloor() == true){
+              //  alert("D'oh");
+            //} 
             // ability to lose
             ball.events.onOutOfBounds.add(function() {
                 // insults go here
@@ -71,15 +74,18 @@
             game.physics.enable(paddle, Phaser.Physics.ARCADE);
             paddle.body.immovable = true;
             
-            initBricks();
+            //initBricks();
         }
         
         // executed on every frame
         function update() {
+            //collide(object1, object2, collideCallback, processCallback, callbackContext) 
             game.physics.arcade.collide(ball, paddle);
             paddle.x = game.input.x || game.world.width*0.5;
+            if (ball.body.blocked.down)
+                alert("D'oh");
         }
-        
+        /*
         function initBricks() {
             brickInfo = {
                 width: 50,
@@ -96,13 +102,13 @@
             }
             
             bricks = game.add.group();
-            
+          */  
             /* create new bricks and add it to group
              * enabled Arcade physics engine
              * set to immovable so it won't move when hit by ball
              * setting anchor to middle
             */
-            for(c=0; c<brickInfo.count.col; c++) {
+          /*  for(c=0; c<brickInfo.count.col; c++) {
                 for(r=0;r<brickInfo.count.row; r++) {
                     // positioning each brick at its own x and y position
                     var brickX = (r*(brickInfo.width+brickInfo.padding)) + brickInfo.offset.left;
@@ -114,9 +120,13 @@
                     newBrick.body.anchor.set(0.5);
                     bricks.add(newBrick);
                 }
-            }
+            }*/
+    //}
+    
+        function hitBottom(){
+            alert("D'oh");
         }
-        
+
     </script>
 </body>
 </html>
