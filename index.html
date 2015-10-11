@@ -15,6 +15,12 @@
             font-size: 50px;
             color: #00A5E6;
         }
+
+        .textBox {
+            margin:auto;
+            vertical-align:middle
+            
+        }
     </style>
     <script src="js/phaser.min.js"></script>
     <script src="js/jquery-2.1.4.min.js"></script>
@@ -34,6 +40,12 @@
         var newBrick;
         var brickInfo;
         
+        //va reader = new FileReader();
+        //reader.readAsText("hurtfulcomments.txt");
+        //reader = text.split("\n");
+        //alert(reader[1]);
+        //var insults = textFileToArray("hurtfulcomments.txt");        
+
         function preload() {
             // scales canvas, but keeps aspect ratio
             game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
@@ -82,8 +94,12 @@
             //collide(object1, object2, collideCallback, processCallback, callbackContext) 
             game.physics.arcade.collide(ball, paddle);
             paddle.x = game.input.x || game.world.width*0.5;
-            if (ball.body.blocked.down)
-                alert("D'oh");
+            if (ball.body.blocked.down){
+                //alert("D'oh");
+                //new Text(game, x, y, text, style)
+                text = game.add.text(game.world.centerX, game.world.centerY, "Insults");
+                text.lifespan = 3000;
+            }
         }
         /*
         function initBricks() {
